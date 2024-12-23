@@ -1,6 +1,6 @@
-# Trail Contract API
+# Decide Contract API
 
-This guide outlines all the contract actions available on the Trail Voting Platform.
+This guide outlines all the contract actions available on the Decide Voting Platform.
 
 -----
 
@@ -10,7 +10,7 @@ This guide outlines all the contract actions available on the Trail Voting Platf
 
 Sets the data in the contract's config singleton.
 
-- string `trail_version`: the version number of the deployed Trail contract.
+- string `decide_version`: the version number of the deployed Decide contract.
 
 - bool `set_defaults`: if true, sets default config values.
 
@@ -27,7 +27,7 @@ Updates a config fee.
 - asset `fee_amount`: the new fee amount.
 
 ```
-cleos push action trailservice updatefee '["ballot", "35.0000 TLOS"]' -p trailservice
+cleos push action trailservice updatefee '["ballot", "35.0000 SYS"]' -p trailservice
 ```
 
 ### ACTION `updatetime()`
@@ -44,21 +44,21 @@ cleos push action trailservice updatetime '["balcooldown", 86400]' -p trailservi
 
 -----
 
-## Treasury Actions
+## Group Actions
 
 ### ACTION `newtreasury()`
 
-Creates a new treasury with the given access method and max supply. 
+Creates a new group with the given access method and max supply. 
 
-- name `manager`: the account that will manage the new treasury.
+- name `manager`: the account that will manage the new group.
 
 - asset `max_supply`: the maximum number of tokens allowed in circulation at one time.
 
-- name `access`: the access method for acquiring a balance of the treasury's tokens. The list of available access methods can be found in the [Treasury Guide](TreasuryGuide.md).
+- name `access`: the access method for acquiring a balance of the group's tokens. The list of available access methods can be found in the [Group Guide](GroupGuide.md).
 
 Required Authority: `manager`
 
-Required Fee: `1000 TLOS`
+Required Fee: `1000 SYS`
 
 ```
 cleos push action trailservice newtreasury '["youraccount", "2,TEST", "public"]' -p manager
@@ -66,9 +66,9 @@ cleos push action trailservice newtreasury '["youraccount", "2,TEST", "public"]'
 
 ### ACTION `edittrsinfo()`
 
-Edits the title, description, and icon of a treasury.
+Edits the title, description, and icon of a group.
 
-- symbol `treasury_symbol`: the treasury to change.
+- symbol `treasury_symbol`: the group to change.
 
 - string `title`: the new title.
 
@@ -84,9 +84,9 @@ cleos push action trailservice edittrsinfo '["2,TEST", "New Title", "New Desc", 
 
 ### ACTION `toggle()`
 
-Toggles a treasury setting on and off.
+Toggles a group setting on and off.
 
-- symbol `treasury_symbol`: the treasury to change.
+- symbol `treasury_symbol`: the group to change.
 
 - name `setting_name`: the name of the setting to toggle.
 
@@ -138,13 +138,13 @@ cleos push action trailservice burn '["5.00 TEST", "test burn"]' -p manager
 
 ### ACTION `reclaim()`
 
-Reclaims tokens from a voter to the treasury manager.
+Reclaims tokens from a voter to the group manager.
 
 - name `voter`: the name of the account from which to reclaim.
 
 - asset `quantity`: the amount of tokens to reclaim.
 
-- strin `memo`: a memo describing the reclamation.
+- string `memo`: a memo describing the reclamation.
 
 ```
 cleos push action trailservice reclaim '["someaccount", "5.00 TEST", "reclaim memo"]' -p manager
@@ -152,7 +152,7 @@ cleos push action trailservice reclaim '["someaccount", "5.00 TEST", "reclaim me
 
 ### ACTION `mutatemax()`
 
-Changes the max supply of a treasury.
+Changes the max supply of a group.
 
 - asset `new_max_supply`: the new max supply to set.
 
@@ -164,9 +164,9 @@ cleos push action trailservice mutatemax '["500.00 TEST", "test mutate max"]' -p
 
 ### ACTION `setunlocker()`
 
-Sets a new treasury unlocker. Only the new unlock_account@unlock_authority will be able to unlock the treasury.
+Sets a new group unlocker. Only the new unlock_account@unlock_authority will be able to unlock the group.
 
-- symbol `treasury_symbol`: the treasury for which to set the new unlocker.
+- symbol `treasury_symbol`: the group for which to set the new unlocker.
 
 - name `new_unlock_acct`: the name of the new unlocker account.
 
@@ -180,9 +180,9 @@ cleos push action trailservice setunlocker '["2,TEST", "someaccount", "active"]'
 
 ### ACTION `lock()`
 
-Locks a treasury, preventing changes to settings.
+Locks a group, preventing changes to settings.
 
-- symbol `treasury_symbol`: the treasury to lock.
+- symbol `treasury_symbol`: the group to lock.
 
 Required Authority: `treasury.manager`
 
@@ -192,9 +192,9 @@ cleos push action trailservice lock '["2,TEST"]' -p manager
 
 ### ACTION `unlock()`
 
-Unlocks a treasury, allowing changes to settings.
+Unlocks a group, allowing changes to settings.
 
-- symbol `treasury_symbol`: the treasury to unlock.
+- symbol `treasury_symbol`: the group to unlock.
 
 Required Authority: `unlocker_acct@unlocker_auth`
 
@@ -212,7 +212,7 @@ Adds funds to a payroll. Funds will be charged from the voter's TLOS balance.
 
 - name `from`: the voter account sending the funds.
 
-- symbol `treasury_symbol`: the treasury receiving the funds.
+- symbol `treasury_symbol`: the group receiving the funds.
 
 - name `payroll_name`: the name of the payroll to receive the funds.
 
@@ -228,7 +228,7 @@ Edits the pay rate of a payroll.
 
 - name `payroll_name`: the name of the payroll to edit.
 
-- symbol `treasury_symbol`: the name of the treasury the payroll belongs to.
+- symbol `treasury_symbol`: the name of the group the payroll belongs to.
 
 - uint32_t `period_length`: the new length of the payroll's pay period in seconds.
 
@@ -252,13 +252,13 @@ Creates a new ballot with the given initial options.
 
 - name `publisher`: the name of the account publishing the ballot.
 
-- symbol `treasury_symbol`: the treasury symbol the ballot will use to count votes.
+- symbol `treasury_symbol`: the group symbol the ballot will use to count votes.
 
 - name `voting_method`: the method of weighting votes. The list of available voting methods can be found in the [Ballot Guide](BallotGuide.md).
 
 - vector(name) `initial_options`: a list of initial options to place on the ballot.
 
-Required Fee: `30 TLOS`
+Required Fee: `30 SYS`
 
 Required Authority: `publisher`
 
@@ -414,7 +414,7 @@ Archives a ballot. A flat fee is charged up front per day of archival.
 
 - time_point_sec `archived_until`: the time point at which the ballot can be unarchived.
 
-Daily Fee: `3 TLOS`
+Daily Fee: `3 SYS`
 
 ```
 cleos push action trailservice archive '["ballot1", "2020-09-08T23:41:00"]' -p testaccounta
@@ -438,11 +438,11 @@ cleos push action trailservice unarchive '["ballot1", false]' -p testaccounta
 
 ### ACTION `regvoter()`
 
-Registers a voter to a treasury. If the treasury is non-public then a referral is required.
+Registers a voter to a group. If the group is non-public then a referral is required.
 
 - name `voter`: the name of the voter to register.
 
-- symbol `treasury_symbol`: the treasury symbol registering the voter.
+- symbol `treasury_symbol`: the group symbol registering the voter.
 
 - name `OPTIONAL referrer`: an optional referrer. Some treasuries will require a referral in order to access.
 
@@ -456,7 +456,7 @@ Unregisters a voter. Requires liquid and staked amount to be zero.
 
 - name `voter`: the name of the voter to unregister.
 
-- symbol `treasury_symbol`: the treasury symbol to which the voter is registered.
+- symbol `treasury_symbol`: the group symbol to which the voter is registered.
 
 ```
 cleos push action trailservice unregvoter '["testaccountb", "2,TEST"]' -p testaccountb
@@ -550,7 +550,7 @@ Forfeits all unclaimed payments from a single worker.
 
 - name `worker_name`: the name of the worker to unregister.
 
-- symbol `treasury_symbol`: the treasury symbol from which to forfeit work.
+- symbol `treasury_symbol`: the group symbol from which to forfeit work.
 
 Required Authority: `worker_name`
 
@@ -560,11 +560,11 @@ cleos push action trailservice forfeitwork '["testaccountb", "2,TEST"]' -p testa
 
 ### ACTION `claimpayment()`
 
-Claims a share of available payroll funds. Payments can be claimed for each treasury where work was performed.
+Claims a share of available payroll funds. Payments can be claimed for each group where work was performed.
 
 - name `worker_name`: the name of the worker claiming a payment.
 
-- symbol `treasury_symbol`: the treasury symbol for which work was done.
+- symbol `treasury_symbol`: the group symbol for which work was done.
 
 ```
 cleos push action trailservice claimpayment '["testaccountb", "2,TEST"]' -p testaccountb
@@ -572,7 +572,7 @@ cleos push action trailservice claimpayment '["testaccountb", "2,TEST"]' -p test
 
 ### ACTION `withdraw()`
 
-Withdraws a quantity of tokens from the voter's TLOS balance out of Trail.
+Withdraws a quantity of tokens from the voter's TLOS balance out of Decide.
 
 - name `voter`: the voter account to withdraw from.
 
@@ -596,7 +596,7 @@ Registers a new committee and populates it with initial seats.
 
 - string `committee_title`: the title of the committee.
 
-- symbol `treasury_symbol`: the treasury symbol that the committee will belong to.
+- symbol `treasury_symbol`: the group symbol that the committee will belong to.
 
 - vector(name) `initial_seats`: a list of initial seat names to add to the committee.
 
@@ -616,7 +616,7 @@ Adds a seat to the committee.
 
 - name `committee_name`: the name of the committee.
 
-- symbol `treasury_symbol`: the treasury symbol that the committee belongs to.
+- symbol `treasury_symbol`: the group symbol that the committee belongs to.
 
 - name `new_seat_name`: the name of the new seat to add to the committee.
 
@@ -632,7 +632,7 @@ Removes a seat from a committee.
 
 - name `committee_name`: the name of the committee.
 
-- symbol `treasury_symbol`: the treasury symbol that the comittee belongs to.
+- symbol `treasury_symbol`: the group symbol that the comittee belongs to.
 
 - name `seat_name`: the name of the seat to remove from the committee.
 
@@ -648,7 +648,7 @@ Assigns an account name to a seat name.
 
 - name `committee_name`: the name of the committee.
 
-- symbol `treasury_symbol`: the treasury symbol that the committee belongs to.
+- symbol `treasury_symbol`: the group symbol that the committee belongs to.
 
 - name `seat_name`: the name of the seat being assigned.
 
@@ -668,7 +668,7 @@ Sets a new updater account and updater authority. The committee updater is the o
 
 - name `committee_name`: the name of the committee.
 
-- symbol `treasury_symbol`: the treasury symbol the committee belongs to.
+- symbol `treasury_symbol`: the group symbol the committee belongs to.
 
 - name `updater_account`: the new account name required for updating the committee.
 
@@ -688,7 +688,7 @@ Deletes a committee.
 
 - name `committee_name`: the name of the committee to delete.
 
-- symbol `treasury_symbol`: the treasury symbol that the committee belongs to.
+- symbol `treasury_symbol`: the group symbol that the committee belongs to.
 
 - string `memo`: a memo for describing the committee deletion.
 
