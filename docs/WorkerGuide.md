@@ -1,6 +1,6 @@
-# Trail Worker Guide
+# Decide Worker Guide
 
-In this guide we will explore all the different interactions Workers can perform on the Trail Voting Platform.
+In this guide we will explore all the different interactions Workers can perform on the Decide Governance Engine.
 
 ### What is a Worker?
 
@@ -8,7 +8,7 @@ A worker is an account that watches for jobs and completes them in return for pa
 
 ### What Kinds of Jobs are Available?
 
-In Trail v2.0.0 there are two kinds of jobs: rebalances and cleanups. Additional job types will become available as new features are added to Trail.
+In Decide v2.0.0 there are two kinds of jobs: rebalances and cleanups. Additional job types will become available as new features are added to Decide.
 
 `Rebalance` jobs become available when voters cast votes on a ballot and then change their vote weight. This action prompts workers to recalculate that voter's weighted votes based on their new balance, and the worker is paid for performing this recalculation. Since a voter can participate on any number of different ballots, rebalance jobs become available on *every active vote by that voter* after a balance change.
 
@@ -18,7 +18,7 @@ Note that if a voter changes their balance again, another rebalance job will be 
 
 ## Getting Started
 
-Follow these steps to get started as a Trail Worker:
+Follow these steps to get started as a Decide Worker:
 
 ### 1. Find Work
 
@@ -40,7 +40,7 @@ If a vote is ready to be cleaned, call the `cleanupvote()` action to clean it up
 
 Workers may call the `claimpayment()` action to claim their earned payment for work performed since the last `claimpayment()` call.
 
-When calling `claimpayment()` a worker must specify which treasury they are claiming work for, as worker funds are managed on a treasury-by-treasury basis. Only work performed for ballots under that treasury will be paid - this way its always clear where worker fund money is going and treasuries only need to worry about funding their own ballots.
+When calling `claimpayment()` a worker must specify which treasury they are claiming work for, as worker funds are managed on a treasury-by-treasury basis. Only work performed for ballots under that treasury will be paid - this way its always clear where worker fund money is going and groups only need to worry about funding their own ballots.
 
 For example, all ballots using the `TEST` treasury will pay workers from the `TEST` treasury's worker fund. Funds for the `CRAIG` treasury will never be paid for work done on the `TEST` treasury, and vice versa, ad infinitum.
 
@@ -54,7 +54,7 @@ Payment is calculated based on 3 Work Metrics: Rebalance Volume, Rebalance Count
 
 `Cleanup Count` is the total number of cleanups done for a treasury by the worker.
 
-Each metric is weighted evenly, and the total earned payout is equal to the total amount of work being claimed by the worker proportional to all the currently unclaimed work in the treasury. In other words, if a worker is claiming 15% of all unclaimed work from a treasury with 100 TLOS available in their worker payroll, the payout will be 15 TLOS.
+Each metric is weighted evenly, and the total earned payout is equal to the total amount of work being claimed by the worker proportional to all the currently unclaimed work in the treasury. In other words, if a worker is claiming 15% of all unclaimed work from a treasury with 100 SYS available in their worker payroll, the payout will be 15 SYS.
 
 #### Payment Decay
 
@@ -64,7 +64,7 @@ After 10 days without claiming, the work may instead be claimed or forfeited by 
 
 ### Example
 
-Worker Fund: 500 TLOS
+Worker Fund: 500 SYS
 
 WorkerA: 
 
@@ -78,7 +78,7 @@ Total Work Proportion = (0.5 + 0.0667 + 0.0231) / 3.0 (.2659 or 26.59%)
 ```
 Worker Fund * Total Work Proportion = Total Payout
 
-500 * .2659 = 132.95 TLOS Total Payout
+500 * .2659 = 132.95 SYS Total Payout
 ```
 
 ### 4. Forfeiting Work
