@@ -1,7 +1,8 @@
-// Telos Decide is an on-chain governance engine for the Telos Blockchain Network that provides
+// Decide Governance Engine is an open-source blockchain governance engine that provides
 // a full suite of voting services for users and developers.
 //
 // @author Craig Branscom
+// @original-author GoodBlock.io
 // @contract decide
 // @version v2.0.0
 // @copyright see LICENSE.txt

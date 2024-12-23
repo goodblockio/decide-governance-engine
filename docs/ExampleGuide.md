@@ -1,26 +1,26 @@
 # Example Guide
 
-For this example, we will assume we have control of the `testaccounta` account on Telos Testnet and own a balance of `1200 TLOS`.
+For this example, we will assume we have control of the `testaccounta` account on Telos Testnet and own a balance of `1200 SYS`.
 
 ## 1. Deposit Funds
 
-To pay for the necessary registration fees, we'll deposit our 1200 TLOS into Trail by simply sending a `transfer()` with `trailservice` as the recipient.
+To pay for the necessary registration fees, we'll deposit our 1200 SYS into Decide by simply sending a `transfer()` with `trailservice` as the recipient.
 
 ```
-cleos push action eosio.token transfer '["testaccounta", "trailservice", "1200.0000 TLOS", "deposit"]' -p testaccounta
+cleos push action eosio.token transfer '["testaccounta", "trailservice", "1200.0000 SYS", "deposit"]' -p testaccounta
 ```
 
-Trail will catch this transfer and create an account with your funds. From there, certain actions will require a fee (creating a treasury, committee, or ballot) that will be drawn from this balance. 
+Decide will catch this transfer and create an account with your funds. From there, certain actions will require a fee (creating a group, committee, or ballot) that will be drawn from this balance. 
 
-There is no TLOS fee for depositing to or withdrawing from Trail, and both can be done at any time.
+There is no SYS fee for depositing to or withdrawing from Decide, and both can be done at any time.
 
-## 2. Treasury Creation
+## 2. Group Creation
 
-To create the example treasury we simply call the `newtreasury()` action on the `trailservice` contract. We will supply the following arguments:
+To create the example group we simply call the `newtreasury()` action on the `trailservice` contract. We will supply the following arguments:
 
 * manager: `testaccounta`
 
-    We will make ourself the manager, since we want to have control over the treasury operations for now.
+    We will make ourself the manager, since we want to have control over the group operations for now.
 
 * max_supply: `500.0 EXMPL`
 
@@ -34,9 +34,9 @@ To create the example treasury we simply call the `newtreasury()` action on the 
 cleos push action trailservice newtreasury '["testaccounta", "500.0 EXMPL", "public"]' -p testaccounta
 ```
 
-This will create a new public treasury with a max supply of 500.0 EXMPL tokens. Note that the treasury symbol is `1,EXMPL` since we chose to use 1 decimal place of precision and the EXMPL ticker.
+This will create a new public group with a max supply of 500.0 EXMPL tokens. Note that the group symbol is `1,EXMPL` since we chose to use 1 decimal place of precision and the EXMPL ticker.
 
-Cost: `1000 TLOS`
+Cost: `1000 SYS`
 
 ## 3. Committee Registration
 
@@ -52,7 +52,7 @@ To create the example committee we will call the `regcommittee()` action on the 
 
 * treasury_symbol: `1,EXMPL`
 
-    The treasury symbol we created with the newtreasury() action. Don't forget the precision.
+    The group symbol we created with the newtreasury() action. Don't forget the precision.
 
 * initial_seats: `["seat1", "seat2", "seat3"]`
 
@@ -66,7 +66,7 @@ To create the example committee we will call the `regcommittee()` action on the 
 cleos push action trailservice regcommittee '["examplecmte", "Example Committee", "1,EXMPL", ["seat1", "seat2", "seat3"], "testaccounta"]' -p testaccounta
 ```
 
-Cost: `100 TLOS`
+Cost: `100 SYS`
 
 ## 4. Ballot Creation
 
@@ -86,7 +86,7 @@ To create the example ballot we will call the `newballot()` action on the `trail
 
 * treasury_symbol: `1,EXMPL`
 
-    The treasury that the ballot will be ran under. We will use the treasury we made earlier, and this means any `EXMPL` holder, including ourselves, will be able to cast a vote on this ballot.
+    The group that the ballot will be ran under. We will use the group we made earlier, and this means any `EXMPL` holder, including ourselves, will be able to cast a vote on this ballot.
 
 * voting_method: `1token1vote`
 
@@ -102,7 +102,7 @@ cleos push action trailservice newballot '["examplebal", "election", "testaccoun
 
 Once the ballot has been registered, don't forget to actually begin voting be calling `openvoting()`. This can be done at any time, so we will wait until we finish setting up our example contract.
 
-Cost: `30 TLOS`
+Cost: `30 SYS`
 
 ## 5. Example Contract Build and Deployment
 
@@ -128,11 +128,11 @@ Once the contract is deployed we need to tell it to watch our new ballot and lis
 
 * ballot_name: `examplebal`
 
-    Tells our example contract to watch the examplebal ballot on Trail.
+    Tells our example contract to watch the examplebal ballot on Decide.
 
 * treasury_symbol: `1,EXMPL`
 
-    The treasury symbol used on the ballot.
+    The group symbol used on the ballot.
 
 * committee_name: `examplecmte`
 
@@ -146,7 +146,7 @@ Once the contract is deployed we need to tell it to watch our new ballot and lis
 cleos push action testaccounta watchballot '["examplebal", "1,EXMPL", "examplecmte", "seat1"]' -p testaccounta
 ```
 
-Next, after telling our contract to watch our Trail ballot, we need to give it permission to execute an inline action to Trail's `assignseat()` action so we can immediately elect our winning candidate. To do this we want to add the virtual `eosio.code` permission to our contract's active authority with the `cleos set account permission` command, like so:
+Next, after telling our contract to watch our Decide ballot, we need to give it permission to execute an inline action to Decide's `assignseat()` action so we can immediately elect our winning candidate. To do this we want to add the virtual `eosio.code` permission to our contract's active authority with the `cleos set account permission` command, like so:
 
 ```
 cleos set account permission testaccounta active --add-code -p testaccounta
@@ -154,7 +154,7 @@ cleos set account permission testaccounta active --add-code -p testaccounta
 
 ## 6. Open Ballot Voting
 
-Now that we have our example contract set up and watching our ballot, we can finally open up our ballot for voting. This is done by simply sending an `openvoting()` action to Trail.
+Now that we have our example contract set up and watching our ballot, we can finally open up our ballot for voting. This is done by simply sending an `openvoting()` action to Decide.
 
 Be aware that once voting has begun no further changes to the ballot may be performed. This is to preserve the integrity of the ballot and ensure voters can't be deceived by altering ballots mid-vote. Ballots may still be cancelled, however.
 
@@ -188,6 +188,6 @@ Once the end time on the ballot has been reached, it will immediately stop accep
 
 Once complete, the ballot status will be changed to `closed` to show the ballot has been properly ended.
 
-Since we chose to broadcast our results, an inline action has automatically been launched by Trail to its own `broadcast()` action that then notifies the ballot publisher account where our example contract is located.
+Since we chose to broadcast our results, an inline action has automatically been launched by Decide to its own `broadcast()` action that then notifies the ballot publisher account where our example contract is located.
 
-The example contract we deployed earlier to the `testaccounta` account catches this `broadcast()` notification from Trail and parses the final ballot results to determine the winner. Once determiend, our contract automatically executes an inline action to Trail's `assignseat()` action, which emplaces the winner into `seat1` on the example committee.
+The example contract we deployed earlier to the `testaccounta` account catches this `broadcast()` notification from Decide and parses the final ballot results to determine the winner. Once determiend, our contract automatically executes an inline action to Decide's `assignseat()` action, which emplaces the winner into `seat1` on the example committee.
