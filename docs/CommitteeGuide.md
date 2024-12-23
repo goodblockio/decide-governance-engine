@@ -1,14 +1,14 @@
-## Trail Committee Guide
+## Decide Committee Guide
 
-In this guide we will explore all the different Committee interactions that can be performed on the Trail Voting Platform.
+In this guide we will explore all the different Committee interactions that can be performed on the Decide Governance Engine.
 
-### What is a Trail Committee?
+### What is a Decide Committee?
 
-A Trail Committee is a group of voters each with their own seat in the committee. Seats may be added and removed, and new members may be assigned to or released from a seat. The committee selects an updater account and authority that is allowed to make changes to the committee, allowing for decentralized control of the committee itself.
+A Decide Committee is a group of voters each with their own seat in the committee. Seats may be added and removed, and new members may be assigned to or released from a seat. The committee selects an updater account and authority that is allowed to make changes to the committee, allowing for decentralized control of the committee itself.
 
 ### Committee Creation
 
-To create a new committee for a treasury, a voter must call the `newcommittee()` action.
+To create a new committee for a governance group, a voter must call the `newcommittee()` action.
 
 ### Adding and Removing Seats
 
