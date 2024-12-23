@@ -5,7 +5,7 @@ The intention of the authors and invoker of this smart contract is to ...
 This Contract expires at the conclusion of code execution.
 
 <h1 class="clause">Warranty</h1>
-{{ name }} shall uphold its Obligations under this Contract in a timely and workmanlike manner, using knowledge and recommendations for performing the services which meet generally acceptable standards set forth by Telos Blockchain Network Block Producers.
+{{ name }} shall uphold its Obligations under this Contract in a timely and workmanlike manner, using knowledge and recommendations for performing the services which meet generally acceptable standards or, where provided, express bylaws set forth by the blockchain upon which it is deployed.
 
 <h1 class="clause">Default</h1>
 The occurrence of any of the following shall constitute a material default under this Contract: 
@@ -17,16 +17,16 @@ In addition to any and all other rights a party may have available according to 
 If performance of this Contract or any obligation under this Contract is prevented, restricted, or interfered with by causes beyond either party's reasonable control (\"Force Majeure\"), and if the party unable to carry out its obligations gives the other party prompt written notice of such event, then the obligations of the party invoking this provision shall be suspended to the extent necessary by such event. The term Force Majeure shall include, without limitation, acts of God, fire, explosion, vandalism, storm or other similar occurrence, orders or acts of military or civil authority, or by national emergencies, insurrections, riots, or wars, or strikes, lock-outs, work stoppages, or supplier failures. The excused party shall use reasonable efforts under the circumstances to avoid or remove such causes of non-performance and shall proceed to perform with reasonable dispatch whenever such causes are removed or ceased. An act or omission shall be deemed within the reasonable control of a party if committed, omitted, or caused by such party, or its employees, officers, agents, or affiliates."
 
 <h1 class="clause">Dispute Resolution</h1>
-Any controversies or disputes arising out of or relating to this Contract will be resolved by binding arbitration under Telos Blockchain Network Arbitration Rules and Procedures. The arbitrator's award will be final."
+Any controversies or disputes arising out of or relating to this Contract will be resolved by binding arbitration under the rules of the blockchain network upon which it is deployed, if such bylaws have been established by the blockchain community."
 
 <h1 class="clause">Entire Agreement</h1>
-This Contract contains the entire agreement of the parties, and there are no other promises or conditions in any other agreement whether oral or written concerning the subject matter of this Contract. This Contract supersedes any prior written or oral agreements between the parties, except for the Telos Blockchain Network Core Governance Documents"
+This Contract contains the entire agreement of the parties, and there are no other promises or conditions in any other agreement whether oral or written concerning the subject matter of this Contract. This Contract supersedes any prior written or oral agreements between the parties."
 
 <h1 class="clause">Severability</h1>
 If any provision of this Contract will be held to be invalid or unenforceable for any reason, the remaining provisions will continue to be valid and enforceable. If a court finds that any provision of this Contract is invalid or unenforceable, but that by limiting such provision it would become valid and enforceable, then such provision will be deemed to be written, construed, and enforced as so limited."
 
 <h1 class="clause">Governing Law</h1>
-This Contract shall be construed in accordance with the Telos Blockchain Network Core Governance Documents, previously referenced.
+This Contract shall be construed in accordance with any ratified governance documents of the blockchain upon which these smart contracts are deployed, where applicable.
 
 <h1 class="clause">Notice</h1>
 Any notice or communication required or permitted under this Contract shall be sufficiently given if delivered to a verifiable email address or to such other email address as one party may have publicly furnished in writing, or published on a broadcast contract provided by this blockchain for purposes of providing notices of this type.
